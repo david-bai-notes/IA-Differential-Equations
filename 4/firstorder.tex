@@ -1,0 +1,223 @@
+\section{First-Order ODEs}
+\begin{definition}
+    An Ordinary Differential Equation (ODE) involves differentiable functions of $1$ variable, while Partial Differential Equations (PDEs) involve higher dimensional functions.\\
+    The order of a differential equations is the highest order of derivative in the equation.
+\end{definition}
+\subsection{First-Order Linear ODEs}
+An linear ODE is, obviously, a linear ODE.
+\begin{example}
+    $x^3y+y^\prime=0$ is a first-order linear ODE.
+\end{example}
+\subsubsection{Prelude: Exponential Function}
+Consider the function $f(x)=a^x,a>1$, then $f^\prime(x)=a^x\lambda$ for some $\lambda>0$.
+\begin{definition}
+    We define $\exp(x)$ to be the solution to the differential equation $f^\prime=f$ with $f(0)=1$.
+\end{definition}
+By definition we have $(e^h-1)/h\to 1$ as $h\to 0$.
+\begin{definition}
+    One can show that $\exp$ is strictly increasing, therefore injective.
+    So we can define $\ln$ to be the inverse function of $\exp$.
+\end{definition}
+So we have $\lambda=\ln a$.\\
+The exponential function plays a central role in differential equations because it is the eigenfunction (i.e. a function that is only scaled under the operator) of the differential operator.\\
+We obviously have $\mathrm de^{\lambda x}/\mathrm dx=\lambda e^{\lambda x}$, so it is indeed an eigenfunction.
+Actually, all the eigenfunctions of the differential operator is of the form $Ce^{\lambda x}$ for some constant $C$ and $\lambda$.
+So the behaviour of a differential equation can be somehow characterized by exponential functions.
+\subsubsection{Rules of Linear ODEs}
+Firstly, any homogeneous linear ODEs with constant coefficients (e.g. $af^\prime+bf=0, a,b\in\mathbb R$) have solutions of the form $Ce^{\lambda x}$ where $\lambda$ can be complex.\\
+Secondly, for linear homogeneous ODEs, any contant multiple of a solution is also a solution.\\
+Thirdly, an $n^{th}$ order linear ODE has only $n$ linearly independent solutions.\\
+Lastly, an $n^{th}$ order ODE requires $n$ initial/boundary conditions to uniquely determine it.
+\subsubsection{Forced (inhomogeneous) First Order ODEs with Constant Coefficient}
+Case 1: Constant forcing.
+For example, $5y'-3y=10$.
+We will follow the following steps:\\
+1. Find steady (equilibrium) solution where $y^\prime=0$.
+In this case, it is $y=y_p=-10/3$.\\
+2. Then, the general solution is in the form $y=y_p+y_c$ where $y_c$ is a complementary solution, any solution to the differential equation removing the inhomogeneous part.
+in this case, $5y'-3y=0$.\\
+3. Solve for $y_c$.
+In this case, $y_c=Ae^{3x/5}$\\
+4. Plug it back: $y=Ae^{3x/5}-10/3$\\
+Here $A$ is any constant.
+This way works since linearity of the equation granted that any two solutions to it must differ by a complementary solution.\\
+Case 2: Eigenfunction forcing.\\
+Suppose an isotope A decays into isotope B in a way that it is proportional to $a$, the number of nuclei of that isotope A.
+While B decays into isotope C, its rate is proportional to $b$, the numbers of nuclei of isotope B.
+So $\dot{a}=-k_aa\implies a=a_0e^{-k_at}$ for some constants $k_a,a_0$.
+Now $\dot{b}=-k_bb+k_aa$ for some constant $k_b$, so
+$$\dot{b}+k_bb=k_aa_0e^{-k_at}$$
+This is an example where the forcing term is the eigenfunction of $\mathrm d/\mathrm dt$.
+We can guess a particular solution
+$$b_p=\frac{k_a}{k_b-k_a}e^{-k_at}$$
+if $k_b\neq k_a$.
+So the general solution is
+$$b=\frac{k_a}{k_b-k_a}a_0e^{-k_at}+De^{-k_bt}$$
+If $b(t)=0$, then
+$$b=\frac{k_a}{k_b-k_a}a_0(e^{-k_at}-e^{-k_bt})$$
+So
+$$\frac{b}{a}=\frac{k_a}{k_b-k_a}(1-e^{(k_a-k_b)t})$$
+we can solve it for $t$ and this solution allows us to date rocks etc by measuring the ratio of isotopes.
+\subsubsection{First Order ODEs with Non-constant Coefficient}
+The general form of these sort of equations are in the form $a(x)y^\prime+b(x)y=c(x)$ or the form $y^\prime+p(x)y=q(x)$ (given that $\forall x,a(x)\neq 0$).
+We can solve it by integrating factor
+$$\mu(x)=\exp\left(\int p\,\mathrm dx\right)$$
+So
+$$(\mu y)^\prime=\mu q\implies \mu y=\int \mu q\,\mathrm dx\implies y=\frac{1}{\mu}\int\mu q\,\mathrm dx$$
+\subsection{Intermezzo: Discrete Equations}
+Sometimes it is useful to consider functions evaluated at a discrete set of points, which could be useful to numerical integration and series solution.
+\subsubsection{Numerical Integration}
+One approximation to $\mathrm dy/\mathrm dx$ at $x=x_n$ can be written as
+$$\left.\frac{\mathrm dy}{\mathrm dx}\right|_{y_n}\approx \frac{y_{n+1}-y_n}{h}$$
+This is called the forward Euler approximation.
+\begin{example}
+    $5y'-3y=0$ again.
+    Then it is approximately equal to the discrete equation
+    $$5y_{n+1}-5y_n-3ny_n=0\implies y_{n+1}=\left(1+\frac{3h}{5}\right)y_n$$
+    We can iterate it to approximate the solution given an initial value.
+    This is the example of a recurrence relation.
+    We can actually solve this by
+    $$y_{n}=\left(1+\frac{3h}{5}\right)^ny_0$$
+    Which can approximate the true solution pretty well if we let $h\to 0,n\to\infty$.
+    Note that in this case, for finite value of $n$, $y_n$ is always less than the actual value of solution at that point.
+\end{example}
+\subsubsection{Series Solution}
+A powerful way to solve DEs is to seek for solutions in the form of an infinite power series.
+Let
+$$y(x)=\sum_{n=0}^\infty a_nx^n$$
+we can plug it in the differential equations to solve for $a_n$.
+\begin{example}
+    $5y'-3y=0$ yet again.
+    Plug it in and we get
+    $$5\sum_{n=0}^\infty (5(n+1)a_{n+1}-3a_n)x^{n}=0$$
+    Hence
+    $$5(n+1)a_n-3a_n=0\implies a_{n+1}=\frac{3a_n}{5n+5}\implies a_n=\left(\frac{3}{5}\right)^n\frac{1}{n!}a_0$$
+    Thus
+    $$y(x)=\sum_{n=0}^\infty a_nx^n=a_0\sum_{n=0}^\infty \left(\frac{3}{5}\right)^n\frac{1}{n!}x^n=a_0e^{3x/5}$$
+    for some constant $a_0$.
+\end{example}
+\subsection{Non-linear First Order ODEs}
+The general form of these sort of equations can be written in the following way:
+$$Q(x,y)\frac{\mathrm dy}{\mathrm dx}+P(x,y)=0$$
+We cannot guarantee that a nonlinear ODE can be solved in closed form.
+But sometimes we can.
+\subsubsection{Special Types of Non-linear First Order ODEs}
+An ODE is said to be separable if it can be written in the form $q(y)\mathrm dy=p(x)\mathrm dx$, then we can solve for it by integrating both sides.\\
+An ODE in the above form is called \textit{exact} if and only if $Q(x,y)\,\mathrm dy+P(x,y)\,\mathrm dx$ is an exact differential of some function $f(x,y)$, that is $\mathrm df=Q\,\mathrm dy+P\,\mathrm dx$.
+If it is the case, our general form then give $\mathrm df=0$, so $f(x,y)=0$ is the solution.\\
+To find it, we can make use of the multivariate chain rule to get
+$$\frac{\partial f}{\partial x}+\frac{\partial f}{\partial y}\frac{\mathrm dy}{\mathrm dx}=0$$
+$P=f_x,Q=f_y$, hence
+$$\frac{\partial^2f}{\partial y\partial x}=\frac{\partial P}{\partial y},\frac{\partial^2f}{\partial x\partial y}=\frac{\partial Q}{\partial x}$$
+So $P_y=Q_x$.
+Conversely, if it is true in a simply connected domain, then $P\,\mathrm dx+Q\,\mathrm dy$ is an exact differential.
+Therefore we can use it to test whether the given ODE is exact.
+If so, we can find $f$ (hence a possibly implicit expression of $y$) back by integration.
+\begin{example}
+    We want to solve $6y(y-x)y'+(2x-3y^2)=0$.
+    So $P=2x-3y^2,Q=6y(y-x)$, we can check that our preceding condition hold (i.e. $P_y=Q_x$), hence it is exact.\\
+    To find $f(x,y)$, we notice
+    $$
+    \begin{cases}
+        \left.\partial f/\partial x\right|_y=2x-3y^2\\
+        \left.\partial f/\partial y\right|_x=6y(y-x)
+    \end{cases}
+    $$
+    Integrating the first equation we have $f(x,y)=x^2-3xy^2+h(y)$ where $h$ is differentiable.
+    Now plug it in the other equation we get $6y(y-x)=-6xy+h^\prime(y)$, thus $h^\prime(y)=6y^2\implies h(y)=2y^3-C$ where $C$ is a constant.
+    So the general solution is
+    $$x^2-3xy^2+2y^3=C$$
+\end{example}
+\subsubsection{Isoclines and Solution Curves}
+Even if (most of the time) we cannot really solve the equation, we can still analyze its behaviour.
+Now we consider an ODE of form $\dot{y}=f(y,t)$, each initial condition $y(t_0)=y_0$ will give a different solution curve (given existence).
+\begin{example}
+    Suppose $\dot{y}=t(1-y^2)$, of course this is separable and we can solve it, but without solving this, we can sketch solution curves as well.
+\end{example}
+\begin{definition}
+    An isocline is a curve given by $\dot{y}$ being constant, that is, $t(1-y^2)=c$ for some constant $c$.
+\end{definition}
+Note that if $f(y,t)$ is single-valued (i.e. actually a function), then the solution curves cannot cross (unless as tangents of each other).
+To sketch the solutions, we can first sketch all the Isoclines.
+Note that along any isocline, the corresponding $\dot{y}$ is constant, so we can easily draw the vector field, so we could follow the directions with initial condition given to approximate the curve.\\
+We can analysis the stability of a fixed point.
+\begin{definition}
+    A fixed point is a constant solution of $y$.
+	That is, we have $\dot{y}=f(y,t)=0$.
+\end{definition}
+\begin{definition}
+    A fixed point is called stable if the solution curve in a small neighbourhood of the fixed point converge to it.
+\end{definition}
+We now try to analyze the stability of fixed points using perturbation analysis.\\
+Let $y=a$ be a fixed point of some DE $\dot{y}=f(y,t)$.
+Consider a small perturbation of the fixed point $y=a+\epsilon(t)$, so $\dot{\epsilon}=f(a+\epsilon,t)=f(a,t)+\epsilon f_y(a,t)+O(\epsilon^2)$, so $\dot{\epsilon}\approx\epsilon f_y(a,t)$ which is linear.
+The behaviour of $\epsilon$ obtained from this differential equation helps us to classify the fixed points.\\
+If $\lim_{t\to\infty }\epsilon(t)=0$ then we call it a stable fixed point, if $\lim_{t\to\infty}\epsilon(t)=\pm\infty$, then we say it is unstable, otherwise we say it is neutral.
+If $f_y(a,t)=0$, then we need higher order terms in that Taylor series in order to determine its behaviour.
+\begin{example}
+    $\dot{y}=t(1-y^2)$, so the fixed points are $y=\pm 1$.
+    We have $f_y=-2ty$.\\
+    For $y=1$, then $\dot{\epsilon}=-2t\epsilon\implies \epsilon_{0}e^{-t^2}$, so $\epsilon\to 0$ when $t\to\infty$.
+    So it is stable.\\
+    For $y=-1$, then $\dot{\epsilon}=2t\epsilon\implies \epsilon_{0}e^{t^2}$, so $\epsilon\to\pm\infty$ (for $\epsilon_0\neq 0$) when $t\to\infty$.
+    So it is unstable.
+\end{example}
+\subsubsection{Autonomous DEs}
+\begin{definition}
+    A DE is called autonomous if $f$ does not depend on $t$, that is, it is of the form $\dot{y}=f(y)$.
+\end{definition}
+So in this case, we apply the perturbation analysis to get $\dot{\epsilon}=f^\prime(a)\epsilon$, thus $\epsilon=\epsilon_0e^{kt}$ where $k=f^\prime(a)$, so if $\epsilon_0\neq 0$,
+$$\epsilon\to
+\begin{cases}
+    0\text{, if $f^\prime(a)<0$, so it is stable}\\
+    \pm\infty\text{, if $f^\prime(a)>0$, so it is unstable}\\
+    \text{Others, if $f^\prime(a)=0$, so it is neutral}
+\end{cases}$$
+\subsubsection{Phase Portraits}
+Another way to analyze the behaviour of a given DE is from a geometric perspective represented by something called phase portrait.
+\begin{example}
+    Chemical kinetics is an important example why it is useful.
+    Consider neutralization reaction ${\rm NaOH+HCl=H_2O+NaCl}$.
+    Let $a(t),b(t)$ be the numbers of NaOH and HCl molecules at times $t$, and $c(t)$ be the number of ${\rm H_2O}$ which is equal to that of NaCl.\\
+    So the initial condition is $a(0)=a_0,b(0)=b_0$, and the model is $\dot{c}=\lambda ab$, also $a=a_0-c,b=b_0-c$, so
+    $$\frac{\mathrm dc}{\mathrm dt}=\lambda(a_0-c)(b_0-c)$$
+    which is autonomous, so $a_0,b_0$ are the fixed points of the DE.
+    We can sketch the graph of $\dot{c}$ against $c$, which is called the 2D phase protrait of the DE, where we can analyze the attraction vectors near the phase protrait by the trends of it to decide the stability.
+\end{example}
+\begin{example}\label{logistic_cont}
+    Let $y(t)$ be the population at time $T$ and birth rate would be $\alpha y$ for some $\alpha$ and the death rate be $\beta y$ for some $\beta$.\\
+    Case 1: Linear model.
+    So $\dot{y}=\alpha y-\beta y\implies y=y_0e^{(\alpha -\beta)t}$, so $y\to\infty$ if $\alpha>\beta$.\\
+    Case 2: Nonlinear model.
+    So $\dot{y}=(\alpha-\beta)y-\gamma y^2$.
+    the parameter $\gamma$ here could be due to the death due to overcrowdedness, etc.
+    Equivalently, we can write it as $\dot{y}=ry(1-y/\lambda)$ where $r=\alpha-\beta,\lambda=(\alpha-\beta)/\lambda$, so we can sketch the phase protrait again.
+    Note that the fixed points are $0$ and $\lambda$, the former is unstable but the latter is stable.
+\end{example}
+\subsubsection{Fixed Points in Discrete Equations}
+We can introduce fixed points in discrete equations as well.
+Consider a first order discrete equation (aka difference equation) of the form $x_{n+1}=f(x_n)$.
+\begin{definition}
+    The fixed point is a discrete equation is a fixed point of the function $f$.
+\end{definition}
+We can analyze its stability again by perturbation analysis.
+Let $x_f$ be a fixed point and we perturb it by a small $\epsilon$, so we can expand $f$ in terms of Taylor series
+$$f(x_f+\epsilon)=x_f+\epsilon f^\prime(x_f)+O(\epsilon^2),\epsilon\to0$$
+So if $x_n=x_f+\epsilon, x_{n+1}=x_f+\epsilon f^\prime(x_f)$.
+So $x_f$ is stable if $|f^\prime(x_f)|<1$, neutral if $|f^\prime(x_f)|=1$, unstable if $|f^\prime(x_f)|>1$.
+\begin{example}[Discrete Logistic Equation]
+    Some populations are born in distinct generations (e.g. lambs born in spring).
+    A nonlinear model of this is
+    $$\frac{x_{n+1}-x_n}{\Delta t}=\lambda x_n-\gamma x_n^2$$
+    This is the discrete version of Example \ref{logistic_cont}, so
+    $$x_{n+1}=(1+\lambda\Delta t)x_n-\gamma\Delta tx_n^2$$
+    We can write alternatively $x_{n+1}=rx_n(1-x_n)=:f(x_n)$
+    The function $f$ is called the logistic map.\\
+    Note that the fixed point occurs at $0$ or $1-1/r$.
+    We analyze its stability by perturbation.
+    At $0$, $f^\prime=r$, so it is stable if $0<r<1$ and unstable if $r>1$.
+    At $1-1/r$, $f^\prime=2-r$.
+    We assume $r<0$ or $r>1$ since the other cases are not physical.
+    \footnote{It's an applied course, so what the hell.}
+    Then it is stable for $1<r<3$ and unstable for $r>3$.
+\end{example}

@@ -1,0 +1,72 @@
+\section{Fundamental Theorem of Calculus}
+\subsection{Integration}
+Assume below that all functions under consideration are nice enough to let the integral exist.\\
+Consider the following sum
+$$\sum_{n=0}^{N-1}f(x_n)\Delta x$$
+where $\Delta x=(b-a)/N, x_n=a+n\Delta x$.\\
+The question is, how close is the finite sum above to the area under the curve of $f$, when $N$ is large?
+How big is the difference between the difference between the area and the discrete area in the sum?
+\begin{theorem}[Mean-vaue Theorem on Definite Integrals]
+    For a continuous function $f(x)$,
+    $$\int_{x_n}^{x_n+1}f(x)\,\mathrm dx=f(x_c)(x_{n+1}-x_n)$$
+    for some $x_c\in(x_n,x_{n+1})$.
+\end{theorem}
+Expand $f(x)$ about $x\to x_n$ and evaluate it at $x_c$.
+As $\Delta x\to 0$,
+$$f(x_c)=f(x_n)+O(x_c-x_n)=f(x_n)+O(x_{n+1}-x_n)$$
+as $|x_c-x_n|<|x_{n+1}-x_n|$.
+Hence by the mean-value theorem:
+\begin{align*}
+    \int_{x_n}^{x_n+1}f(x)\,\mathrm dx
+    &=f(x_n)(x_{n+1}-x_n)+O(x_{n+1}-x_n)(x_{n+1}-x_n)\\
+    &=\Delta xf(x_n)+O(\Delta x^2)
+\end{align*}
+So $\epsilon=O(\Delta x^2)$.
+It follows that
+$$\int_a^bf(x)\,\mathrm dx=\lim_{N\to\infty}\sum_{n=0}^{N-1}f(x_n)\Delta x+\epsilon_n$$
+By our bounds above, the error terms $\sum_n\epsilon_n=O(N\Delta x^2)=O((b-a)^2/N)$ vanish as $N\to\infty$.
+Therefore,
+$$\int_a^bf(x)\,\mathrm dx=\lim_{N\to\infty}\sum_{n=0}^{N-1}f(x_n)\Delta x$$
+\begin{theorem}[Fundamental Theorem of Calculus]
+    Let
+    $$F(x)=\int_a^xf(t)\,\mathrm dt$$
+    then $\mathrm dF/\mathrm dx=f(x)$.
+\end{theorem}
+\begin{proof}
+    We try to evaluate the derivative of $F$,
+    \begin{align*}
+        \frac{\mathrm dF}{\mathrm dx}
+        &=\lim_{h\to0}\frac{1}{h}\int_{x}^{x+h}f(t)\,\mathrm dt\\
+        &=\lim_{h\to0}\frac{1}{h}(f(x)h+O(h^2))\\
+        &=f(x)
+    \end{align*}
+    So $\mathrm dF/\mathrm dx=f(x)$.
+\end{proof}
+\begin{corollary}
+    $$\frac{\mathrm d}{\mathrm dx}\int_x^bf(t)\,\mathrm dt=-f(x)$$
+\end{corollary}
+\begin{corollary}
+    $$\int_a^{g(x)}f(t)\,\mathrm dt=f(g(x))g^\prime(x)$$
+\end{corollary}
+\begin{corollary}
+    Let
+    $$F(x)=\int f(x)\,\mathrm dx$$
+    be the indefinite integral (or anti-derivative) of $f$, then
+    $$\int_a^bf(t)\,\mathrm dt=F(b)-F(a)$$
+\end{corollary}
+\subsection{Some Integration Techniques}
+The first one is integration by substitution.
+\begin{example}
+    $$\int\frac{1-2x}{\sqrt{x-x^2}}\,\mathrm dx=\int\frac{\mathrm du}{\sqrt u}=2\sqrt{u}+C$$
+\end{example}
+Trigonometric substitution
+\begin{example}
+    If we see something like $\sqrt{a^2-x^2}$, then we can substitute $x=a\sin\theta$.\\
+    If we see something like $x^2+a^2$, we can use $x=a\tan\theta$.\\
+    If we see $\sqrt{x^2-a^2}$, we can use $x=a\cosh\theta$ or $x=a\sec\theta$.\\
+    If we see $\sqrt{x^2+a^2}$, we can use $x=a\sinh\theta$ or $x=a\tan\theta$.\\
+    If we see $a^2-x^2$, we can use $x=a\tanh\theta$
+\end{example}
+And, of course, we have integration by part:
+$$\int uv^\prime=uv-\int u^\prime v$$
+from product rule.

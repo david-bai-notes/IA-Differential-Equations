@@ -1,0 +1,124 @@
+\section{Multivariate Calculus}
+In many real world applications, functions we might be interested in can involve more than one independent variable.
+\begin{example}
+    Waves along a string.
+    Let $f(x,t)$ be the displacement where $x$ be the position and $t$ be the time.
+    The shape of the wave (represented by $f(x,t_0)$ where $t_0$ is fixed) is dependent on time.
+\end{example}
+How do we define the derivative when a function depends on more than one variable?
+Suppose that $f(x,y)$ is the elevation of the terrain at the specific location $x,y$.
+We can draw a contour map of its projection on a plane.
+If we are interested in the steepness at a point $a$ on the surface, one should note that different trails going though $a$ may have different steepness.
+So the general point is that the slope of a function at a given point depends on the direction.
+\subsection{Partial Derivative}
+We want to find the derivative of a multivariate function with respect to one variable while keeping others fixed.
+\begin{definition}
+    Mathematically speaking, we define partial derivative $f(x,y)$ with respect to $x$ fixing $y$ is the limit
+    $$\left.\frac{\partial f}{\partial x}\right|_y=\lim_{h\to0}\frac{f(x+h,y)-f(x,y)}{h}$$
+    provided that it exists.
+    We can define the partial derivative with respect to $y$ fixing $x$ similarly.
+\end{definition}
+\begin{example}
+    Let $F(x,y)=x^2+y^3+e^{xy^2}$, so
+    $$\left.\frac{\partial f}{\partial x}\right|_y=2x+y^2e^{xy^2},\left.\frac{\partial f}{\partial y}\right|_x=3y^2+2xye^{xy^2}$$
+\end{example}
+We can do partial derivatives recursively as well.
+$$\left.\frac{\partial^2 f}{\partial x^2}\right|_y=2+y^4e^{xy^2}$$
+Now we can define cross-derivative as well,
+$$\left.\frac{\partial}{\partial y}\left(\left.\frac{\partial f}{\partial x}\right|_y\right)\right|_x=2ye^{xy^2}+2xy^3e^{xy^2}$$
+Since the notation is cumbersome, we sometimes omit the symbol $|_y$.\\
+There is a symmetry involved in mixed partial derivatives.
+By that we mean
+$$\frac{\partial^2 f}{\partial x\partial y}=\frac{\partial^2 f}{\partial y\partial x}$$
+given that all these partial derivatives exist.
+Some properties are required for this equality to hold, but they are out of the scope of this course.\\
+On higher dimensions (where we can define partial derivatives analogously), for example $f(x,y,z)$, when we sometimes say
+$$\left.\frac{\partial f}{\partial x}\right|_y$$
+its value would depend on the path it takes in the $x-z$ plane.\\
+We sometimes use the shorthand notation $f_x,f_{xy},f_{xx}$ for the partial derivatives.
+\subsection{The Chain Rule on Higher Dimensions}
+Consider $f(x(t),y(t))$, we first want to have the concept of a differential of a function.
+$$\delta f=f(x+\delta x, y+\delta y)-f(x,y)$$
+So we have
+$$\delta f=f(x+\delta x, y+\delta y)-f(x+\delta x,y)+f(x+\delta x,y)-f(x,y)$$
+When $y$ is held constant, $f(x+\delta x,y)=f(x,y)+\delta x(\partial f/\partial x)(x,y)+o(\delta x)$ as $\delta x\to0$.
+Similarly $f(x+\delta x,y+\delta y)=f(x,y)+\delta y(\partial f/\partial y)(x+\delta x,y)+o(\delta y)$ as $\delta y\to0$.
+Therefore as $\delta x\to 0,\delta y\to0$
+\begin{align*}
+    \delta f
+    &=f(x+\delta x,y)+\delta y\frac{\partial f}{\partial y}(x+\delta x,y)+o(\delta y)-f(x+\delta x,y)\\
+    &\quad+f(x,y)+\delta x\frac{\partial f}{\partial x}(x,y)+o(\delta x)-f(x,y)\\
+    &=\delta y\frac{\partial f}{\partial y}(x+\delta x,y)+\delta x\frac{\partial f}{\partial x}(x,y)+o(\delta x)+o(\delta y)\\
+    &=\delta y\frac{\partial f}{\partial y}(x,y)+\delta x\frac{\partial f}{\partial x}(x,y)\\
+    &\quad+\delta x\delta y\frac{\partial}{\partial x}\frac{\partial f}{\partial y}(x,y)+o(\delta x)+o(\delta y)+o(\delta x\delta y)
+\end{align*}
+Note that $o(\delta x\delta y)+o(\delta x)=o(\delta x)$ as $\delta y\to0$, so we can ignore that term.\\
+We let $\delta x,\delta y\to 0$, so
+\begin{align*}
+    \delta f&=\delta y\frac{\partial f}{\partial y}+\delta x\frac{\partial f}{\partial x}+\delta x\delta y\frac{\partial}{\partial x}\frac{\partial f}{\partial y}+o(\delta x)+o(\delta y)\\
+    \mathrm df&=\frac{\partial f}{\partial y}\mathrm dy+\frac{\partial f}{\partial x}\mathrm dx
+\end{align*}
+This is called the chain rule in differential form.
+We can obtain the chain rule by dividing by another differential $\mathrm dt$ before applying the limit.
+$$\frac{\mathrm df}{\mathrm dt}=\frac{\partial f}{\partial y}\frac{\mathrm dy}{\mathrm dt}+\frac{\partial f}{\partial x}\frac{\mathrm dx}{\mathrm dt}$$
+This is called the multivariate chain rule.\\
+Suppose $f(x,y(x))$, then
+$$\frac{\mathrm df}{\mathrm dx}=\frac{\partial f}{\partial x}+\frac{\partial f}{\partial y}\frac{\mathrm dy}{\mathrm dx}$$
+We can integrate it back
+$$\int\mathrm df=\int\frac{\partial f}{\partial x}\,\mathrm dx+\int\frac{\partial f}{\partial y}\,\mathrm dy$$
+Note that we need to integrate the above equation along a given path, but if the function is nice enough, only the endpoints matter.
+\begin{example}
+    We choose the paths
+    $$(x_1,y_1)\to(x_2,y_1)\to(x_2,y_2)$$
+    and
+    $$(x_1,y_1)\to(x_1,y_2)\to(x_2,y_2)$$
+    then
+    $$f(x_2,y_2)-f(x_1,y_1)=\int_{x_1}^{x_2}\frac{\partial f}{\partial x}(x,y_1)\,\mathrm dx+\int_{y_1}^{y_2}\frac{\partial f}{\partial y}(x_2,y)\,\mathrm dy$$
+    $$=\int_{x_1}^{x_2}\frac{\partial f}{\partial x}(x,y_2)\,\mathrm dx+\int_{y_1}^{y_2}\frac{\partial f}{\partial y}(x_1,y)\,\mathrm dy$$
+\end{example}
+An application of the multivariate chain rule is the change of variables.
+It is often useful to write a differential equation in a different coordinate system before solving it.
+To do this, we need to transform the derivatives from one to the other.
+\begin{example}
+    We try to transform from Cartesian to polar coordinate, so $x=r\cos\theta,y=r\sin\theta$, so we can write $f(x(r,\theta),y(r,\theta))$, so
+    $$\left.\frac{\partial f}{\partial r}\right|_\theta=\left.\frac{\partial f}{\partial x}\right|_y\left.\frac{\partial x}{\partial r}\right|_\theta+\left.\frac{\partial f}{\partial y}\right|_x\left.\frac{\partial y}{\partial r}\right|_\theta=\left.\frac{\partial f}{\partial x}\right|_y\cos\theta+\left.\frac{\partial f}{\partial y}\right|_x\sin\theta$$
+\end{example}
+We can also apply it to implicit differentiation.
+Consider $f(x,y,z)=c$ where $c$ is a constant.
+It implicitly defined $z(x,y),x(y,z),y(z,x)$.
+For example, we can take $xy+y^2z+z^5=1$, so $x=(1-z^5-y^2z)/y$ and we can find $y$ by quadratic formula, but we cannot do it easily with $z$ since it's quintic.\\
+However, we can find the derivative $\partial z/\partial x$ fixing $y$ by observing
+$$0=\left.\frac{\partial f}{\partial x}\right|_y=y+y^2\left.\frac{\partial z}{\partial x}\right|_y+5z^4\left.\frac{\partial z}{\partial x}\right|_y$$
+which we can solve for the desired derivative.\\
+Now consider $f(x,y,z(x,y))=0$,
+$$\mathrm df=\left.\frac{\partial f}{\partial x}\right|_{y,z}\mathrm dx+\left.\frac{\partial f}{\partial y}\right|_{x,z}\mathrm dy+\left.\frac{\partial f}{\partial z}\right|_{x,y}\mathrm dz$$
+We want the derivative of $z$ wrt $x$ with $y$ fixed, so
+$$\left.\frac{\partial f}{\partial x}\right|_y=\left.\frac{\partial f}{\partial x}\right|_{y,z}+\left.\frac{\partial f}{\partial z}\right|_{x,y}\left.\frac{\partial z}{\partial x}\right|_y$$
+In fact, $(\partial f/\partial x)|_y=0$.\\
+The chain rule allows us to differentiate an integral.
+Consider  function $f(x,c)$ where each value of $c$ gives a different function $f$.
+We want to find the (partial) derivative of the integral
+$$\int_0^bf(x,c)\,\mathrm dx$$
+Then
+\begin{align*}
+    \left.\frac{\partial I(b,c)}{\partial b}\right|_c
+    &=\lim_{h\to 0}\frac{1}{h}\int_b^{b+h}f(x,c)\,\mathrm dx\\
+    &=f(b,c)
+\end{align*}
+Similarly,
+\begin{align*}
+    \left.\frac{\partial I(b,c)}{\partial c}\right|_b
+    &=\lim_{h\to 0}\frac{1}{h}\int_0^bf(x,c+h)-f(x,c)\,\mathrm dx\\
+    &=\int_0^b\left.\frac{\partial I(x,c)}{\partial c}\right|_x\,\mathrm dx
+\end{align*}
+Suppose that $b,c$ depends on $t$, so $I(b(t),c(t))$, so
+\begin{align*}
+    \frac{\mathrm dI}{\mathrm dt}
+    &=\frac{\partial I}{\partial b}\frac{\mathrm db}{\mathrm dt}+\frac{\partial I}{\partial c}\frac{\mathrm dc}{\mathrm dt}\\
+    &=f(b,c)\dot{b}+\dot{c}\int_0^b\left.\frac{\partial I(x,c)}{\partial c}\right|_x\,\mathrm dx
+\end{align*}
+In general,
+$$\frac{\mathrm d}{\mathrm dt}\int_{a(t)}^{b(t)}f(x,c(t))\,\mathrm dx=\dot{c}\int_{a(t)}^{b(t)}\frac{\partial f}{\partial c}\,\mathrm dx+f(b,c)\dot{b}-f(a,c)\dot{a}$$
+Note that the reciprocal rule also apply.
+The same rule applies to partial derivatives given that the same parameter is kept constant.
+$$\left.\frac{\partial r}{\partial x}\right|_y=\frac{1}{\partial x/\partial r|_y}$$

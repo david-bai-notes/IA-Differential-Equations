@@ -1,0 +1,389 @@
+\section{Multivariable Equations}
+\subsection{Functions of Multiple Independent Variables}
+Consider $f(x,y)$ and a small vector displacement $\underline{\mathrm ds}=(\mathrm dx,\mathrm dy)$, so the change along $\underline{\mathrm ds}$ is
+$$\mathrm df=\frac{\partial f}{\partial x}\mathrm dx+\frac{\partial f}{\partial y}\mathrm dy=\underline{\mathrm ds}\cdot(\nabla f)$$
+by the multivariate chain rule.
+Here, $\nabla f=(f_x,f_y)$ is called the gradient of $f$.
+If we write $\underline{\mathrm ds}=\mathrm ds\underline{\hat{s}}$ with $|\underline{\hat{s}}|=1$, so $\mathrm df=\mathrm ds(\underline{\hat{s}}\cdot\nabla f)$
+\begin{definition}
+    The directional derivative is defined as
+    $$\frac{\mathrm df}{\mathrm ds}=\underline{\hat{s}}\cdot\nabla f$$
+\end{definition}
+\begin{proposition}
+    1. The magnitude of $\nabla f$ is the maximum rate of change of $f$, that is
+    $$|\nabla f|=\sup_{\underline{\hat{s}},|\underline{\hat{s}}|=1}\frac{\mathrm df}{\mathrm ds}$$
+    And the supremum can be attained.\\
+    2. The direction of $\nabla f$ is the direction where $f$ increases most rapidly.\\
+    3. If $\underline{\hat{s}}$ is parallel to the contour of $f$, then $\mathrm df/\mathrm ds=0$.
+\end{proposition}
+\begin{proof}
+    1. Cauchy-Schwarz and take $\underline{\hat{s}}=\nabla{f}/|\nabla f|$.\\
+    2,3. Obvious.
+\end{proof}
+\begin{corollary}
+    There is always one direction where $\mathrm df/\mathrm ds=0$.
+\end{corollary}
+\begin{proof}
+    Immediate.
+\end{proof}
+\begin{proposition}
+    Local extrema of $f$ have $\mathrm df/\mathrm ds=0$ for any direction.
+    Hence $\nabla f=\underline{0}$.
+\end{proposition}
+\begin{proof}
+    Trivial.
+\end{proof}
+However, if $\nabla f=\underline{0}$ at some point, it does \textit{not} follow that the point is an local extremum, since it could be a saddle point.
+Near local extrema, the contour of $f$ is elliptical while it is hyperboly near saddle points.
+Also, contours of $f$ can only cross at saddle point.
+\subsection{Taylor Series for Multivariate Functions}
+Consider $f(x,y)$ near a point $\underline{s_0}\in\mathbb R^2$ and a displacement $\delta s$ along the line $\underline{\delta s}$, so
+\begin{align*}
+    f(s_0+\delta s)&=f(s_0)+\delta s\frac{\mathrm df}{\mathrm ds}+\frac{(\delta s)^2}{2}\frac{\mathrm d^2f}{\mathrm ds^2}+\cdots\\
+    &=f(s_0)+\delta s(\underline{\hat s}\cdot\nabla f)+\frac{(\delta s)^2}{2}(\underline{\hat{s}}\cdot\nabla)(\underline{\hat s}\cdot\nabla)f+\cdots
+\end{align*}
+To write it out in coordinate form,
+\begin{definition}
+    The Hessian matrix is defined by
+    $$H=
+    \begin{pmatrix}
+        f_{xx}&f_{xy}\\
+        f_{yx}&f_{yy}
+    \end{pmatrix}=\nabla(\nabla f)$$
+    Note that $H$ is symmetric whenever $f$ is nice enough (e.g. $C^2$) to have $f_{yx}=f_{xy}$.
+\end{definition}
+We have, by this notation,
+\begin{align*}
+    f(\underline{x})&=f(x,y)\\
+    &=f(x_0,y_0)+(x-x_0)f_x+(y-y_0)f_y\\
+    &\quad+\frac{1}{2}((x-x_0)^2f_{xx}+2(x-x_0)(y-y_0)f_{xy}+(y-y_0)^2f_{yy})+\cdots\\
+    &=f(\underline{x_0})+\nabla f(\underline{x_0})(\underline{x}-\underline{x_0})^\top+\frac{1}{2}(\underline{x}-\underline{x_0}) H(x_0)(\underline{x}-\underline{x_0})^\top+\cdots
+\end{align*}
+\subsection{Classification of Stationary Points}
+When $\nabla f=\underline{0}$ at some $\underline{x_0}$, we have
+$$f(\underline{x_0}+\underline{\delta x})\approx f(\underline{x_0})+\frac{1}{2}\underline{\delta x} H(x_0)\underline{\delta x}^\top$$
+Note that this can extend analogously to $n$ dimensions.
+\begin{definition}
+    The Hessian in $n$ dimensions is defined by
+    $$H=
+    \begin{pmatrix}
+        f_{x_1x_1}&f_{x_1x_2}&\dots&f_{x_1x_n}\\
+        f_{x_2x_1}&f_{x_2x_2}&\dots&f_{x_2x_n}\\
+        \vdots&\vdots&\ddots&\vdots\\
+        f_{x_nx_1}&f_{x_nx_2}&\dots&f_{x_nx_n}
+    \end{pmatrix}$$
+\end{definition}
+If $f$ is nice enough to allow change of order of partial derivatives, then $H(x_0)$ is real and symmetric, hence diagonalizable by Spectral Theorem.
+So we can choose the basis to be the eigenbasis (which can be chosen to be orthonormal), therefore
+$$\underline{\delta x}H(x_0)\underline{\delta x}^\top=\sum_{i=1}^n\lambda_i(\delta x_i)^2$$
+With this, we can classify the stationary points in $3$ cases.\\
+Case 1: $\forall\underline{\delta x}\in\mathbb R^n\setminus\{\underline{0}\},\underline{\delta x}H(x_0)\underline{\delta x}^\top>0$.
+This happens iff $\lambda_i>0$ for each $i$, that is, $H$ is positive definite.\\
+Case 2: $\forall\underline{\delta x}\in\mathbb R^n\setminus\{\underline{0}\},\underline{\delta x}H(x_0)\underline{\delta x}^\top<0$.
+This happens iff $\lambda_i<0$ for each $i$, that is, $H$ is negative definite.\\
+Case 3: Otherwise, $H$ is indefinite.
+\begin{definition}
+    The signature of $H$ is the pattern of signs of its subdeterminant.
+\end{definition}
+For example, for $f(x_1,x_2,\ldots x_n)$, the subdeterminants are
+$$H_k=
+\begin{pmatrix}
+    f_{x_1x_1}&f_{x_1x_2}&\dots&f_{x_1x_k}\\
+    f_{x_2x_1}&f_{x_2x_2}&\dots&f_{x_2x_k}\\
+    \vdots&\vdots&\ddots&\vdots\\
+    f_{x_kx_1}&f_{x_kx_2}&\dots&f_{x_kx_k}
+\end{pmatrix}$$
+Then the sign is the signs of $|H_1|,|H_2|,\ldots,|H_n|$.
+\begin{theorem}
+    If $H$ is positive (negative) definite, so is all of $H_i$.
+\end{theorem}
+Therefore a minimum (maximum) point of a real function in $\mathbb R^n$ is also a minimum (maximum) point in any subspace of $\mathbb R^n$ that includes the point.
+\begin{center}
+    \begin{tabular}{c|c}
+        Type of S.P.&Signature\\
+        \hline
+        Minimum&$+,+,+,+,\ldots$\\
+        Maximum&$-,+,-,+,\ldots$
+    \end{tabular}
+\end{center}
+Sometimes $|H|=0$, in which case this stationary point is called degenerate, so we need to look at higher order terms in the Taylor series.
+The helps us in sketching the contour of a two dimensional function.
+Consider the coordinate system aligned with the (orthonormal) eigenbasis of $H$, so $\underline{\delta x}=\underline{x}-\underline{x_0}=(\xi_1,\xi_2)$, where $\underline{x_0}$ is a stationary point.
+In a small region near $x_0$, contour of $f$ satisfies
+$$\text{const}=f\approx f(\underline{x_0})+\frac{1}{2}\underline{\delta x}H\underline{\delta x}^\top\implies \lambda_1\xi_1^2+\lambda_2\xi_2^2=\text{const}$$
+Near min/max, $\lambda_1,\lambda_2$ have the same sign, so the contour looks like an ellipse.
+Near saddles, they have the different sign and the contour looks like a hyperbola.
+\begin{example}
+    We want to find and classify the stationary points of
+    $$f(x,y)=4x^3-12xy+y^2+10y+6$$
+    and sketch its contour.\\
+    We have $f_x=12x^2-12y,f_y=-12x+2y+10$, so at the stationary point, we have $(x,y)=(1,1),(5,25)$.
+    Now $f_{xx}=24x,f_{xy}=f_{yx}=-12,f_{yy}=2$.
+    So at $(1,1)$,
+    $$H=\begin{pmatrix}
+        24&-12\\
+        -12&2
+    \end{pmatrix}\implies |H_1|>0,|H_2|<0$$
+    So it is neither a maximum nor a minimum, hence it is a saddle point.\\
+    As for $(5,25)$,
+    $$H=\begin{pmatrix}
+        120&-12\\
+        -12&2
+    \end{pmatrix}\implies |H_1|>0,|H_2|>0$$
+    so it is a minimum.
+    We can then sketch the contour by drawing ellipses near $(5,25)$ and hyperbolic curves near $(1,1)$.
+\end{example}
+\subsection{System of Linear ODEs}
+Consider a few dependent variables $y_1(t),y_2(t),\ldots$ which satisfies system of coupled ODEs.
+\begin{example}
+    Consider
+    $$
+    \begin{cases}
+        \dot{y_1}=ay_1+by_2+f_1(t)\\
+        \dot{y_2}=cy_1+dy_2+f_2(t)
+    \end{cases}
+    $$
+    So in vector form
+    $$\underline{\dot{y}}=M\underline{y}+\underline{f}$$
+\end{example}
+Any $n^{th}$ order ODE can be written as a system of $n$ first-order ODEs.
+\begin{example}
+    Consider $\ddot{y}+a\dot{y}+by=f$, so let $y_1=y,y_2=y^\prime$, then we have
+    $$\frac{\mathrm d}{\mathrm dt}\begin{pmatrix}
+        y_1\\
+        y_2
+    \end{pmatrix}=
+    \begin{pmatrix}
+        0&1\\
+        -b&-a
+    \end{pmatrix}
+    \begin{pmatrix}
+        y_1\\
+        y_2
+    \end{pmatrix}+
+    \begin{pmatrix}
+        0\\
+        f
+    \end{pmatrix}$$
+\end{example}
+One way to solve it is to use matrix methods.
+Consider
+$$\underline{\dot{y}}=M\underline{y}+\underline{f}$$
+First, we find the general solution $\underline{y_c}$ to
+$$\underline{\dot{y}_c}-M\underline{y_c}=0$$
+Then we find a particular solution $\underline{y_p}$ to the system, so by the superposition principle the general solution is $\underline{y_p}+\underline{y_c}$.\\
+To find solution to the homogeneous equation, we try $\underline{y_c}=\underline{v}e^{\lambda t}$ which leads us to the conclusion that $\lambda$ must be an eigenvalue of $M$ with eigenvector $\underline{v}$.
+\begin{example}
+    Consider
+    $$\underline{\dot{y}}-\begin{pmatrix}
+        -4&24\\
+        1&-2
+    \end{pmatrix}\underline{y}=\begin{pmatrix}
+        4\\
+        1
+    \end{pmatrix}e^t$$
+    We can find the eigenvalues and eigenvectors of $M$ and find that $\lambda_1=2,\underline{v_1}=(4,1)^\top,\lambda_2=-8,\underline{v_2}=(-6,1)^\top$
+    So we have
+    $$\underline{y_c}(t)=A\begin{pmatrix}
+        4\\
+        1
+    \end{pmatrix}e^{2t}+B\begin{pmatrix}
+        -6\\
+        1
+    \end{pmatrix}e^{-8t}$$
+    We can sketch the phase portrait of $y_2$ against $y_1$ to find a hyperbola-like path of $(y_1,y_2)$.\\
+    To find the particular integral, we can try
+    $$\underline{y_p}=\begin{pmatrix}
+        u_1\\
+        u_2
+    \end{pmatrix}e^t$$
+    and find that $(u_1,u_2)=(-4,-1)$ solves the system, therefore the general solution is
+    $$
+    \underline{y}=
+    \begin{pmatrix}
+        -4\\
+        -1
+    \end{pmatrix}e^t+
+    A\begin{pmatrix}
+        4\\
+        1
+    \end{pmatrix}e^{2t}+B\begin{pmatrix}
+        -6\\
+        1
+    \end{pmatrix}e^{-8t}
+    $$
+    where $A,B$ are constants.
+\end{example}
+If the forcing matches the eigenvalue and eigenvector, we can try multiplying a polynomial in $t$ (mostly just $t^k$ will work).\\
+From a linear system of $n$ first-order ODEs, we can construct $n$ uncoupled $n^{th}$ order ODEs.
+\begin{example}
+    Consider the same equation
+    $$\underline{\dot{y}}=\begin{pmatrix}
+        -4&24\\
+        1&-2
+    \end{pmatrix}\underline{y}+\begin{pmatrix}
+        4\\
+        1
+    \end{pmatrix}e^t$$
+    We can differentiate the first component to get $\ddot{y_1}=-4\dot{y_1}+24\dot{y_2}+4e^t=-6\dot{y_1}+16y_1+36e^t$, which we know how to solve.
+    Similar way works for $y_2$.
+    One can check that this essentially gives the same solution.
+\end{example}
+We can discuss the concept of Phase Portrait in a more general way.
+For complementary function $\underline{y_c}$ satisfying $\underline{\dot{y}_c}=M\underline{y_c}$, then $y_c=\underline{v_1}e^{\lambda_1 t}+\underline{v_2}e^{\lambda_2 t}$\\
+Case 1: $\lambda_1,\lambda_2$ are real and $\lambda_1\lambda_2<0$, WLOG $\lambda_1>0>\lambda_2$, then the Phase Portrait is hyperbolic and converging towards the direction of $\underline{v_1}$.\\
+Case 2: $\lambda_1,\lambda_2$ are real and $\lambda_1\lambda_2>0$.
+If $\lambda_1<\lambda_2<0$, the phase portrait converge to $0$.
+This is called the stable node.
+If $\lambda_1>\lambda_2>0$, the phase portrait diverge from $0$.
+this is called the unstable node.\\
+Case 3: They are both complex.\\
+Case 3(a): The real parts are both negative, then the amplitude will decrease in time, so it produces a spiral-like phase portrait converging to $0$ (stable spiral).\\
+Case 3(b): They are both positive, so the amplitude grows in time, so it produces a spiral-like curve spiraling out of $0$, then it is an unstable spiral.\\
+Case 3(c): They are both zero, then the amplitudes does not change and it is purely oscillating (i.e. circles centering at $0$).
+We can find the direction of the oscillation by evaluating the equation at a given point and find the sign of $\dot{y}_2$.
+\subsection{Nonlinear Systems}
+Consider a nonlinear autonomous system
+$$\begin{cases}
+    \dot{x}=f(x,y)\\
+    \dot{y}=g(x,y)
+\end{cases}$$
+We want to find equilibrium (fixed) point, so for $\dot{x}=\dot{y}=0$, we have $f(x_0,y_0)=0=g(x_0,y_0)$
+We can do perturbation analysis by a small displacement $(x,y)=(x_0+\xi(t),y_0+\eta(t))$ around the fixed point, so
+$$\dot{\xi}=f(x_0+\xi,y_0+\eta)=f(x_0,y_0)+\xi f_x(x_0,y_0)+\eta f_y(x_0,y_0)+\cdots$$
+$$\dot{\eta}=g(x_0+\xi,y_0+\eta)=g(x_0,y_0)+\xi g_x(x_0,y_0)+\eta g_y(x_0,y_0)+\cdots$$
+But $f,g$ are $0$ at $(x_0,y_0)$, so
+$$\begin{pmatrix}
+    \dot{\xi}\\
+    \dot{\eta}
+\end{pmatrix}\approx
+\left.\begin{pmatrix}
+    f_x&f_y\\
+    g_x&g_y
+\end{pmatrix}\right|_{(x_0,y_0)}\begin{pmatrix}
+    \xi\\
+    \eta
+\end{pmatrix}$$
+\begin{example}
+    Lotka-Volterra Model of predator and prey.
+    $$\begin{cases}
+        \dot{x}=\alpha x-\beta xy=f(x,y)\\
+        \dot{y}=\delta xy-\gamma y=g(x,y)
+    \end{cases}$$
+    where $\alpha,\beta,\gamma,\delta>0$.
+    The fixed point is $(0,0)$ and $(\gamma/\delta,\alpha/\beta)$.
+    Note that we have
+    $$\begin{pmatrix}
+        f_x&f_y\\
+        g_x&g_y
+    \end{pmatrix}=\begin{pmatrix}
+        \alpha-\beta y&-\beta x\\
+        \delta y&\delta x-\gamma
+    \end{pmatrix}$$
+    At $(0,0)$, we have
+    $$\begin{pmatrix}
+        \dot{\xi}\\
+        \dot{\eta}
+    \end{pmatrix}\approx
+    \begin{pmatrix}
+        \alpha&0\\
+        0&-\gamma
+    \end{pmatrix}\begin{pmatrix}
+        \xi\\
+        \eta
+    \end{pmatrix}$$
+    So the eigenvalues are $\alpha,-\gamma$, thus it is a saddle point.
+    For the other fixed point,
+    $$\begin{pmatrix}
+        \dot{\xi}\\
+        \dot{\eta}
+    \end{pmatrix}\approx
+    \begin{pmatrix}
+        0&\frac{-\beta\gamma}{\delta}\\
+        \frac{\alpha\delta}{\beta}&0
+    \end{pmatrix}\begin{pmatrix}
+        \xi\\
+        \eta
+    \end{pmatrix}$$
+    So it has a pair of purely imaginary eigenvalues, so it a center.
+    The direction of rotation is counterclockwise.
+    Indeed, we have
+    $$\dot{\xi}=\frac{-\beta\gamma}{\delta}\eta<0$$
+    for $\eta>0$.
+    We can sketch the solutions.
+\end{example}
+\subsection{Partial Differential Equations}
+\begin{definition}
+    A PDE is a DE with partial derivatives.
+\end{definition}
+Here, we will only consider three examples.
+\subsubsection{First Order Wave Equation}
+This is the PDE
+$$\frac{\partial y}{\partial t}-c\frac{\partial y}{\partial x}=0$$
+where $y=y(x,t)$ and $c$ is a constant.
+We can solve it with the method of characteristics.
+Imagine the contour of $y$ in the $x-t$ plane, then we can start at some point and move it back and forth along a path.
+So along a path $x(t)$, if we have $y(x(t),t)$, then plugging it in our equation by the multivariate chain rule,
+$$\frac{\mathrm dy}{\mathrm dt}=\frac{\partial y}{\partial t}+\frac{\partial y}{\partial x}\frac{\mathrm dx}{\mathrm dt}$$
+So we can take the path where $\dot{x}=-c$ thus $\dot{y}=0$ (so $x=x_0-ct$), hence $y$ will be constant along that line.
+These paths are called characteristics.
+If $y(x,t=0)=f(x)$, then $y=f(x_0)$ along the characteristic.
+Therefore the general solution is
+$$y=f(x+ct)$$ for some differentiable $f$.
+\begin{example}
+    With the initial condition $y(x,0)=x^2-3$, since we have $y=f(x+ct)$, $y(x,t)=(x+ct)^2-3$.
+\end{example}
+If we add some forcing,
+\begin{example}
+    Consider
+    $$\frac{\partial y}{\partial t}+5\frac{\partial y}{\partial x}=e^{-t}$$
+    with $y(x,0)=e^{-x^2}$.
+    So $\mathrm dy/\mathrm dt$ along the path with $\mathrm dx/\mathrm dt=5$, so $y=A-e^{-t}$ along a path.
+    Note that $A$ depends on $x(0)=x_0$, the initial point of the path.
+    We know $y(x,0)=A-1=e^{-x_0^2}$, so $A=1+e^{-x_0^2}$.
+    Hence $y=1+e^{-(x-5t)^2}-e^{-t}$.
+\end{example}
+\subsubsection{Second Order Wave Equation}
+We want to solve
+$$\frac{\partial^2 y}{\partial t^2}-c^2\frac{\partial^2 y}{\partial x^2}=0$$
+So we can ``factorize'' it to have
+$$\left( \frac{\partial}{\partial t}-c\frac{\partial}{\partial x} \right)\left( \frac{\partial}{\partial t}+c\frac{\partial}{\partial x} \right)y=0$$
+Hence solutions can have $y_t\pm cy_x=0$, so the solution is in the form $f(x+ct)+g(x-ct)$.
+\begin{example}
+    Suppose we want to solve $y_{tt}-c^2y_{xx}=0$ and $y=1/(1+x^2),y_t=0$ at $t=0$ and $y\to 0$ as $x\to\infty$.
+    So
+    $$\begin{cases}
+        f(x)+g(x)=1/(1+x^2)\\
+        cf^\prime(x)-cg^\prime(x)=0\implies f=g+A
+    \end{cases}$$
+    for some constant $A$.
+    So we can solve to get
+    $$g(x)=\frac{1}{2(1+x^2)}-\frac{A}{2},f(x)=\frac{1}{2(1+x^2)}+\frac{A}{2}$$
+    So
+    $$y=\frac{1}{2(1+(x+ct)^2)}+\frac{1}{2(1+(x-ct)^2)}$$
+    We can sketch the solution to find that this gives two waves moving to the two ends.
+\end{example}
+\subsubsection{Diffusion Equation}
+We consider
+$$\frac{\partial y}{\partial t}=\kappa\frac{\partial^2 y}{\partial x^2}$$
+where $\kappa$ is a constant.
+Typical cases where diffusion occurs are pollution transport, heat conduction and movement of microles.
+Integrate the equation over $\mathbb R$ to get
+$$\frac{\partial}{\partial t}\int_{-\infty}^\infty y\,\mathrm dx=\kappa [y_x]^\infty_{-\infty}$$
+So if $y_x\to 0$ as $x\to\pm\infty$, the integeral of $y$ over $\mathbb R$ will be constant.\\
+We can solve by the use of similarity variable.
+\begin{example}
+    Consider $y_t=\kappa y_{xx}$ where $y(x,0)=\delta (x)$ and $y\to 0$ when $x\to\pm\infty$.
+    Define $\eta=x^2/(4\kappa t)$.
+    \footnote{Obtained from dimensional analysis}
+    We can try solutions of the form $y=t^{-\alpha}f(\eta)$ to get
+    $$-\frac{\alpha}{t}+f^\prime\eta_t=\kappa f^{\prime\prime}(\eta_x)^2+\kappa f^\prime\eta_{xx}$$
+    But note that $\eta_t=-\eta/t,\eta_x=\eta/(\kappa t),\eta_{xx}=2/(4\kappa t)$.
+    All of the terms then have a factor of $1/t$, so we can remove the time dependence and get
+    $$\alpha f+f^\prime \eta+f^{\prime\prime}\eta+f^\prime/2=0$$
+    Let $\alpha=1/2$, we have $\eta F^\prime+F/2=0$ where $F=f+f^\prime$.
+    If $F=0$ (which is a solution) then $f(\eta)=Ae^{-\eta}$.
+    Then $y=At^{-1/2}e^{-x^2/(4\kappa t)}$, then from the delta function condition we have $A=1/\sqrt{4\pi\kappa}$, hence
+    $$y(x,t)=\frac{1}{\sqrt{4\pi\kappa}}t^{-1/2}e^{-x^2/(4\kappa t)}$$
+    is a solution.
+\end{example}

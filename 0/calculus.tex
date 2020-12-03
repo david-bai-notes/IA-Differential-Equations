@@ -1,0 +1,47 @@
+\section{Basic Calculus}
+\begin{definition}
+    Let $f:U\to\mathbb R$ where $U\subset\mathbb R$, then if $\forall\epsilon>0,\exists\delta>0$ such that
+    $$|x-x_0|<\delta\implies|f(x)-A|<\epsilon$$
+    for some $x_0,A\in\mathbb R$, we say
+    $$\lim_{x\to x_0}f(x)=A$$
+\end{definition}
+\begin{theorem}
+    Assume that
+    $$\lim_{x\to x_0}f(x)=A, \lim_{x\to x_0}f(x)=B$$
+    Then the followings hold:
+    $$\lim_{x\to x_0}cf(x)=cA$$
+    $$\lim_{x\to x_0}f(x)+g(x)=A+B$$
+    $$\lim_{x\to x_0}f(x)g(x)=AB$$
+    $$B\neq 0\implies\lim_{x\to x_0}f(x)/g(x)=A/B$$
+\end{theorem}
+\begin{proof}
+    Check definitions.
+\end{proof}
+\begin{definition}[One-sided limits]
+    If $\forall\epsilon>0,\exists\delta>0$ such that $0<x-x_0<\delta\implies|f(x)-A|<\epsilon$
+    for some $x_0,A\in\mathbb R$, we say
+    $$\lim_{x\to x_0^+}f(x)=A$$
+    Simialrly, if it is $0<x_0-x<\delta\implies|f(x)-A|<\epsilon$, then
+    $$\lim_{x\to x_0^-}f(x)=A$$
+\end{definition}
+\begin{definition}
+    If the limit
+    $$\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$$
+    exists for all $x$ in a given domain, we say that $f$ is differentiable in this domain and its derivative is
+    $$f^\prime(x)=\frac{\mathrm df}{\mathrm dx}=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$$
+\end{definition}
+For sufficiently smooth functions, we can differentiate it recursively.
+We denote the $n^{th}$ derivative of $f$ as
+$$\frac{d^nf}{dx^n}\text{ or }f^{(n)}(x)$$
+Several immediate facts are available from here:
+\begin{theorem}
+    1. The differential operator is linear.\\
+    2. (Chain Rule) Suppose both $F$ and $g$ are differentiable and $f(x)=F(g(x))$,
+    then $f$ is differentiable and $f^\prime(x)=F^\prime(g(x))g^\prime(x)$.\\
+    3. (Leibniz's Rule) Suppose both $u$ and $v$ are differentiable and $f(x)=u(x)v(x)$, then
+    $$f^{(n)}(x)=\sum_{k=0}^n\binom{n}{k}u^{(k)}(x)v^{(n-k)}(x)$$
+    in particular $f^\prime(x)=u(x)v^\prime(x)+u^\prime(x)v(x)$.
+\end{theorem}
+\begin{proof}
+    Trivial.
+\end{proof}

@@ -1,0 +1,62 @@
+\section{Order of Magnitude and Taylor's Theorem}
+\subsection{Asymptopic Behaviour}
+When we want to analyze the difference between functions, apart from their analytical properties, we would also be interested in the difference between their magnitudes.
+The following notion arrives to serve this purpose
+\begin{definition}[Little-$o$ notation]
+    Let $f, g$ be real functions and $x_0\in\bar{\mathbb R}=\mathbb R\cup\{\pm\infty\}$, we say that $f(x)=o(g(x))$ as $x\to x_0$ if
+    $$\lim_{x\to x_0}\frac{f(x)}{g(x)}=0$$
+\end{definition}
+\begin{definition}[Big-$O$ notation]
+    Let $f, g$ be real functions and $x_0\in\mathbb R$, we say that $f(x)=O(g(x))$ as $x\to x_0$ if $\exists\delta,M>0$ such that
+    $$|x-x_0|<\delta\implies |f(x)|\le M|g(x)|$$
+    We say $f(x)=O(g(x))$ as $x\to\infty$ if $\exists x_1,M>0$ such that
+    $$x>x_1\implies |f(x)|\le M|g(x)|$$
+    We say $f(x)=O(g(x))$ as $x\to-\infty$ if $\exists x_1<0,M>0$ such that
+    $$x<x_1\implies |f(x)|\le M|g(x)|$$
+\end{definition}
+\begin{remark}
+    Remember that the equality sign of $f(x)=o(g(x))$ or $f(x)=O(g(x))$ is not really the usual equality sign we use.
+    It is more like $f(x)\in o(g(x))$ or $f(x)\in O(g(x))$, meaning that $f$ is one of those functions having this property on its magnitude.
+    The reason why we use the equality sign here is that we sometimes use the notations to denote \textit{some} functions having this property, which we do not (need to) know any detail except its magnitude.
+\end{remark}
+\begin{example}
+    We have $x^2=o(x)$ as $x\to0$ and $x^2=O(x)$ as $x\to0$. In fact, whenever $f(x)=o(g(x))$ as $x\to x_0$ we have $f(x)=O(g(x))$ as $x\to x_0$ as well. The proof again is just checking definitions.
+\end{example}
+Now, one of the most significant usage of the measurement of magnitude is that we can use it to approximate the rest of the terms in a series.
+For example, if we take the series $1+x+x^2+x^3+\ldots$, we can replace it by $1+x+x^2+x^3+o(x^3)$, in which way one can include information about the magnitude of the error term of the series.
+\subsection{Taylor Series}
+The idea of the Taylor series is to locally approximate a smooth enough function by polynomials.
+Surely, most functions have much worse analytical properties then polynomials, making it slightly problematic to analyze some of their properties.
+Taylor series provides a solution.
+Basically, we start by assuming a local approximation of the function by a polynomial.
+Say $f(x)\approx a_0+a_1x+a_2x^2+\cdots+a_nx^n$, then, by differentiating both sides recursively, we immediately have $a_n=f^{(n)}(0)/n!$.
+The polynomial, which we will call $P_{n,0}(x)$, is called the Taylor polynomial.
+In general, if we shift the polynomial by $x_0$, we have the general form:
+\begin{definition}
+    The Taylor polynomial $P_{n,x_0}(x)$ of a function $f$ around a point $x_0$ is the polynomial
+    $$\sum_{k=0}^{n}\frac{f^{(k)}(x_0)(x-x_0)^k}{k!}$$
+\end{definition}
+Now the big question is, we have (quite vaguely) obtained the form of the sequence of polynomials that looks as if it can approximate $f$ as $n$ is big enough.
+But does it?
+Obviously unless $f$ is a polynomial as well it has no chance that the polynomial will be equal to $f$, but what can we say about the magnitude of the error term?
+Taylor's theorem saves the day.
+\begin{theorem}[Taylor's theorem]
+    Write $h=x-x_0$.
+	Provided that $f^{(n+1)}$ exists, then
+    $$E_{n,x_0}(x)=f(x)-P_{n,x_0}(x)=O(h^{n+1})$$
+    as $h\to 0$.
+\end{theorem}
+Actually $E_{n,x_0}=o(h^n)$ as $h\to 0$ as well but the big-$O$ here is stronger.
+\subsection{L'Hopital's Rule}
+\begin{theorem}
+    If $f(x)$ and $g(x)$ are both differentiable at $x=x_0\in\bar{\mathbb R}$, and that $f,g$ are both continuous at $x_0$ and $f(x_0)=g(x_0)=0$, then
+    $$\lim_{x\to x_0}\frac{f(x)}{g(x)}=\lim_{x\to x_0}\frac{f^\prime(x)}{g^\prime(x)}$$
+\end{theorem}
+\begin{proof}
+    The little-$o$ notations below are taken as $x\to x_0$.
+    $$f(x)=f(x_0)+(x-x_0)f^\prime(x_0)+o(x-x_0), g(x)=g(x_0)+(x-x_0)g^\prime(x_0)+o(x-x_0)$$
+    by Taylor's theorem.
+    $$\frac{f(x)}{g(x)}=\frac{f^\prime(x_0)+o(x-x_0)/(x-x_0)}{g^\prime(x_0)+o(x-x_0)/(x-x_0)}\to \frac{f^\prime(x_0)}{g^\prime(x_0)}$$
+    as $x\to x_0$.
+\end{proof}
+Note that we can use L'Hopital's rule recursively given that the conditions still hold.
